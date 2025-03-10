@@ -1,14 +1,26 @@
 <script setup lang="ts">
 import ChatBubble from './ChatBubble.vue';
+import type { ChatMessage } from '../../interfaces/chat-messages.interface';
 
+interface Props {
+  messages: ChatMessage[];
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <div class="flex-1 overflow-y-auto p-4">
-      <div class="flex flex-col space-y-2">
-        <!-- Messages go here -->
-      <ChatBubble :its-mine= "true" :message="'Hola Kouski'"/>
-      <ChatBubble :its-mine= "false" :message="'Yes'" image="https://yesno.wtf/assets/yes/13-c3082a998e7758be8e582276f35d1336.gif"/>
-      </div>
+    <div class="flex flex-col space-y-2">
+      <!-- Messages go here -->
+      <ChatBubble
+        v-for="message in messages"
+        :key="message.id"
+        v-bind="message"/>
+        <!-- :its-mine="message.itsMine"
+        :message="message.message"
+        :image="message.image" -->
+
     </div>
+  </div>
 </template>
